@@ -1,0 +1,52 @@
+pm.test("Status code is 200", function () {
+    pm.expect(pm.response.code).to.equal(200);
+    pm.response.to.have.status(200);
+});
+
+var jsonData = {
+        "args": {},
+        "headers": {
+            "x-forwarded-proto": "https",
+            "x-forwarded-port": "443",
+            "host": "postman-echo.com",
+            "x-amzn-trace-id": "Root=1-5ec6516c-0e38a2d0b8ee88e4f0568198",
+            "user-agent": "PostmanRuntime/7.24.1",
+            "accept": "*/*",
+            "cache-control": "no-cache",
+            "postman-token": "2a0483d8-4dfe-4824-bc2c-39d879559772",
+            "accept-encoding": "gzip, deflate, br",
+            "cookie": "sails.sid=s%3AU-UiXn3dPTZZMP47H5v3MAFQg2djUurY.0iNBwjU9W31io%2F6nDOfRiFn9qBV%2Bm9QNm2pc7vDhMlo"
+        },
+        "url": "https://postman-echo.com/get",
+        "le":['apple', 'lemon', 'banana']
+    }
+
+pm.test("Checking if object contains any one of the keys", function () {
+    pm.expect(jsonData).to.have.any.keys('abc', 'args', 'accept'); //aleast contain one of the key
+});
+
+pm.test("Check if object contains all provided keys", function () {
+     pm.expect(jsonData).to.have.all.keys('args', 'headers', 'url', 'le');
+});
+
+pm.test("Check if object contains any NONE of the provided keys", function () {
+     pm.expect(jsonData).to.not.have.any.keys('c', 'd'); //true
+});
+    
+pm.test("Check if object contains the property", function () {
+    pm.expect(jsonData).to.have.property('url'); //args, headers, url true
+});
+
+pm.test("Check if object contains all the keys", function () {
+     pm.expect(jsonData).to.be.an('object').that.has.all.keys('args', 'headers', 'url', 'le');
+});
+
+pm.test("Check the length of the target", function () {
+     pm.expect(jsonData.headers.host).to.have.lengthOf(16);
+     pm.expect(jsonData.headers.accept).to.have.lengthOf(3);
+});
+
+pm.test("Check the size of the target", function () {
+     pm.expect(jsonData.le).to.have.lengthOf(3);
+});
+
