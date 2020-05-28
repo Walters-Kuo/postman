@@ -3,6 +3,7 @@ pm.test("Status code is 200", function () {
     pm.response.to.have.status(200);
 });
 
+//object
 var jsonData = {
         "args": {},
         "headers": {
@@ -50,3 +51,9 @@ pm.test("Check the size of the target", function () {
      pm.expect(jsonData.le).to.have.lengthOf(3);
 });
 
+//array
+var wishList = [1, 2, 3, 4, 5];
+pm.test("Check if wish list contain the wish id!", function () {
+    console.log("wish list conttain 2!" + wishList.includes(2));
+    pm.expect(1).to.be.oneOf(wishList);
+});
