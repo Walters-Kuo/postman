@@ -1,0 +1,15 @@
+productList = JSON.stringify(fruitList);
+pm.environment.set("productList", productList);
+
+if (pm.environment.get("list") !== undefined)
+{   
+
+    var list = JSON.parse(pm.environment.get("list"));
+    console.log("categoryList=" + categoryList);
+    
+    var categoryId = categoryList[Math.floor(Math.random() * categoryList.length)];
+    pm.environment.set("categoryId", categoryId);
+    console.log("categoryId=" + categoryId);
+
+    console.log("product List pre-request end!");
+}
