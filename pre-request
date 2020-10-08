@@ -51,13 +51,22 @@ if (!pm.environment.get('access_token_expiry') || !pm.environment.get('access_to
             //console.log("access_token = " + data.access_token);
             var de_token = parseJwt(data.access_token);
         
-            if (de_token['username']) {
-                pm.environment.set("jwt_username", de_token['username']);
+            if (de_token['http://xrspace.attributes/xrworld'][0]) {
+                pm.environment.set("jwt_age", de_token['http://xrspace.attributes/xrworld'][0].split(".")[2]);
             }
-
-            if (de_token['nickname']) {
-                pm.environment.set("jwt_nickname", de_token['nickname']);
+            
+            if (de_token['http://xrspace.attributes/xrworld'][1]){
+                pm.environment.set("jwt_country", de_token['http://xrspace.attributes/xrworld'][1].split(".")[2]);
             }
+            
+            if (de_token['http://xrspace.account/properties']['username']){
+                pm.environment.set("jwt_username", de_token['http://xrspace.account/properties']['username']);
+            }
+            
+            if (de_token['http://xrspace.account/properties']['nickname']) {
+                pm.environment.set("jwt_nickname", de_token['http://xrspace.account/properties']['nickname']);
+            }
+            
             pm.environment.set("jwt_user_id", de_token['sub']);
             pm.environment.set("access_token_expiry", de_token['exp'] + "000");
         }
